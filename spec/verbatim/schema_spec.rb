@@ -26,6 +26,20 @@ RSpec.describe Verbatim::Schema do
     expect { dot_pair_class.parse("1.2junk") }.to raise_error(Verbatim::ParseError, /trailing/)
   end
 
+  it "rejects input longer than Verbatim::Schema::MAX_INPUT_LEN" do
+    long = "0." + ("9" * 127)
+    expect(long.length).to eq(129)
+    expect { dot_pair_class.parse(long) }.to raise_error(Verbatim::ParseError, /maximum length/)
+  end
+
+  it "accepts input of exactly MAX_INPUT_LEN characters" do
+    s = "0." + ("9" * 126)
+    expect(s.length).to eq(Verbatim::Schema::MAX_INPUT_LEN)
+    v = dot_pair_class.parse(s)
+    expect(v.a).to eq(0)
+    expect(v.b).to eq(Integer("9" * 126, 10))
+  end
+
   it "supports #[] and to_h" do
     v = dot_pair_class.parse("0.0")
     expect(v[:a]).to eq(0)

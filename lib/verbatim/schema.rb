@@ -9,6 +9,10 @@ module Verbatim
   class Schema
     include Comparable
 
+    # Maximum number of characters allowed in the string passed to {.parse} (UTF-8 codepoint count).
+    #
+    MAX_INPUT_LEN = 128
+
     class << self
       # Subclasses must call +super+ and initialize {#segments}, {#default_delimiter}, and {#segment_names}.
       #
@@ -80,9 +84,18 @@ module Verbatim
       #
       # @param string [String]
       # @return [Schema] a frozen instance populated from +string+
-      # @raise [ParseError] on invalid input
+      # @raise [ParseError] on invalid input or if +string+ is longer than {#MAX_INPUT_LEN}
       #
       def parse(string)
+        if string.length > MAX_INPUT_LEN
+          raise ParseError.new(
+            "input exceeds maximum length of #{MAX_INPUT_LEN} characters (#{string.length} given)",
+            string: string,
+            index: MAX_INPUT_LEN,
+            segment: nil
+          )
+        end
+
         allocate.tap do |instance|
           instance.send(:initialize_values)
           Parser.new(self, string).parse_into(instance)

@@ -126,7 +126,7 @@ end
 
 ## Errors
 
-Input is interpreted as UTF-8; version strings are expected to be compatible with that (typical ASCII SemVer strings work as intended). Failed parses raise `Verbatim::ParseError` with `#message`, `#string` (full input), `#index` (0-based **character** index into the string), and `#segment` (current segment name as a symbol when applicable, or `nil`).
+Input is interpreted as UTF-8; version strings are expected to be compatible with that. `Schema.parse` rejects strings longer than `Verbatim::Schema::MAX_INPUT_LEN` (**128** characters, by UTF-8 codepoint count) with `Verbatim::ParseError`. Failed parses raise `Verbatim::ParseError` with `#message`, `#string` (input), `#index` (0-based **character** index into the string), and `#segment`.
 
 ## License
 

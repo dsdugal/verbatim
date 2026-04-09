@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file. The format 
 
 - (nothing yet)
 
+### Changed
+
+- `Schema.parse` enforces a maximum input length of 128 characters (`Verbatim::Schema::MAX_INPUT_LEN`).
+
 ## [0.1.0] - 2026-04-08
 
 ### Added
