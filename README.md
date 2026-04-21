@@ -2,7 +2,8 @@
 
 Verbatim is a Ruby gem for **declarative version string schemas**. You subclass `Verbatim::Schema`, declare ordered segments in a class-level Domain-Specific Language (DSL), then **parse** strings into structured values and **format** them back with `#to_s`.
 
-Requires **Ruby 3.2+**.
+## Requirements
+- Ruby **≥ 3.2.0**
 
 ## Installation
 
@@ -20,8 +21,6 @@ bundle install
 
 ## Use
 
-Define a schema, call `.parse`, use readers or `#[]` / `#to_s`:
-
 ```ruby
 require "verbatim"
 
@@ -38,7 +37,7 @@ v[:minor]  # => 15
 v.to_s   # => "2.15"
 ```
 
-Build an instance by hand (useful for tests or construction from other data):
+Build an instance by hand (useful for tests):
 
 ```ruby
 ApiVersion.new(major: 1, minor: 0).to_s  # => "1.0"
