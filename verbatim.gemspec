@@ -7,7 +7,6 @@ Gem::Specification.new do |spec|
   spec.version = Verbatim::VERSION
   spec.authors = ["Dustin Dugal"]
   spec.summary = "Declarative software version schemas"
-  spec.description = "Define version string layouts with a class DSL, parse with .parse, round-trip with #to_s."
   spec.homepage = "https://github.com/dsdugal/verbatim"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
